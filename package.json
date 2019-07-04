@@ -1,0 +1,19 @@
+{
+  "name": "liftingclub",
+  "version": "1.0.0",
+  "description": "A website for workout / lifting enthusiasts to post workouts, diets, and discussions in a friendly community driven way. Also a store will be implemented where lifting club t-shirts and other merchandise can be purchased.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tblais1224/Lifting-Club.git"
+  },
+  "author": "tblais1224",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tblais1224/Lifting-Club/issues"
+  },
+  "homepage": "https://github.com/tblais1224/Lifting-Club#readme"
+}
