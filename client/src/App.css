@@ -1,0 +1,7 @@
+.App {
+  text-align: center;
+}
+
+.App-logo{
+  background-image: image("../public/liftingClubLogo.jpg")
+}
