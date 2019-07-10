@@ -1,5 +1,5 @@
 node_modules
 package-lock.json
 .vscode
-server/config/production.json
-server/config/default.json
+config/production.json
+config/default.json

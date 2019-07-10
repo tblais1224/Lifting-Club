@@ -2,9 +2,9 @@ const express = require("express")
 const router = express.Router()
 
 
-//@route GET api/auth
+//@route GET api/liftingPost
 //@desc  Test route
 //@access  Public
-router.get("/",(req,res) => res.send("Auth route"))
+router.get("/",(req,res) => res.send("Lifting post route"))
 
 module.exports = router
