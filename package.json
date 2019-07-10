@@ -2,10 +2,11 @@
   "name": "liftingclub",
   "version": "1.0.0",
   "description": "A website for workout / lifting enthusiasts to post workouts, diets, and discussions in a friendly community driven way. Also a store will be implemented where lifting club t-shirts and other merchandise can be purchased.",
-  "main": "index.js",
+  "main": "server/server.js",
   "scripts": {
-    "start": "node server.js",
-    "server": "nodemon server.js",
+    "start": "node ./server/server.js",
+    "server": "nodemon ./server/server.js",
+    "server-install": "npm install --prefix server",
     "client": "npm start --prefix client",
     "client-install": "npm install --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
@@ -22,16 +23,15 @@
   "homepage": "https://github.com/tblais1224/Lifting-Club#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.19.0",
-    "concurrently": "^4.1.1",
+    "chalk": "^2.4.2",
+    "config": "^3.1.0",
     "express": "^4.17.1",
+    "express-validator": "^6.1.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.6.3",
-    "passport": "^0.4.0",
-    "passport-jwt": "^4.0.0",
-    "validator": "^11.0.0"
+    "mongoose": "^5.6.4"
   },
   "devDependencies": {
+    "concurrently": "^4.1.1",
     "nodemon": "^1.19.1"
   }
 }
