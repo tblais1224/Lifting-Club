@@ -1,7 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const auth = require("../../middleware/auth");
-const { check, validationResult } = require("express-validator");
+const {
+  check,
+  validationResult
+} = require("express-validator");
 const Profile = require("../../models/Profile");
 const User = require("../../models/User");
 
@@ -10,13 +13,17 @@ const User = require("../../models/User");
 //@access  private
 router.get("/me", auth, async (req, res) => {
   try {
-    const profile = await Profile.findOne({ user: req.user.id }).populate(
+    const profile = await Profile.findOne({
+      user: req.user.id
+    }).populate(
       "user",
       ["name"]
     );
 
     if (!profile) {
-      return res.status(400).json({ msg: "No profile found for this user" });
+      return res.status(400).json({
+        msg: "No profile found for this user"
+      });
     }
 
     res.json(profile);
@@ -36,7 +43,9 @@ router.get("/user/:user_id", async (req, res) => {
     }).populate("user", ["name"]);
 
     if (!profile) {
-      return res.status(400).json({ msg: "No profile found for this user" });
+      return res.status(400).json({
+        msg: "No profile found for this user"
+      });
     }
 
     res.json(profile);
@@ -44,7 +53,9 @@ router.get("/user/:user_id", async (req, res) => {
     console.error(error.message);
     //if the type of error is object id error res.send the same error as above
     if (error.kind === "ObjectId") {
-      return res.status(400).json({ msg: "No profile found for this user" });
+      return res.status(400).json({
+        msg: "No profile found for this user"
+      });
     }
     res.send(500).send("server error");
   }
@@ -73,17 +84,19 @@ router.post(
     auth,
     [
       check("bio", "Bio is required")
-        .not()
-        .isEmpty(),
+      .not()
+      .isEmpty(),
       check("experienceLevel", "Experience level is required")
-        .not()
-        .isEmpty()
+      .not()
+      .isEmpty()
     ]
   ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({
+        errors: errors.array()
+      });
     }
 
     const {
@@ -107,21 +120,28 @@ router.post(
     if (sex) profileFields.sex = sex;
     if (bio) profileFields.bio = bio;
     if (experienceLevel) profileFields.experienceLevel = experienceLevel;
+
+    //this might not be necassery
     if (certifications)
       profileFields.certifications = certifications.map(cert => ({
         certification: cert
       }));
     if (favoriteGym) profileFields.favoriteGym = favoriteGym;
+
     try {
-      let profile = await Profile.findOne({ user: req.user.id });
+      let profile = await Profile.findOne({
+        user: req.user.id
+      });
 
       if (profile) {
         //update profile
-        profile = await Profile.findOneAndUpdate(
-          { user: req.user.id },
-          { $set: profileFields },
-          { new: true }
-        );
+        profile = await Profile.findOneAndUpdate({
+          user: req.user.id
+        }, {
+          $set: profileFields
+        }, {
+          new: true
+        });
         return res.json(profile);
       }
 
@@ -147,20 +167,22 @@ router.put(
     auth,
     [
       check("weight", "Weight is required")
-        .not()
-        .isEmpty(),
+      .not()
+      .isEmpty(),
       check("height", "Height is required")
-        .not()
-        .isEmpty(),
+      .not()
+      .isEmpty(),
       check("bodyFatIndex", "Body fat index is required")
-        .not()
-        .isEmpty()
+      .not()
+      .isEmpty()
     ]
   ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({
+        errors: errors.array()
+      });
     }
 
     const {
@@ -197,7 +219,9 @@ router.put(
     if (waist) bodyMeasurementFields.waist = waist;
 
     try {
-      const profile = await Profile.findOne({ user: req.user.id });
+      const profile = await Profile.findOne({
+        user: req.user.id
+      });
 
       profile.bodyMeasurements.unshift(bodyMeasurementFields);
 
@@ -220,20 +244,22 @@ router.put(
     auth,
     [
       check("weight", "Weight is required")
-        .not()
-        .isEmpty(),
+      .not()
+      .isEmpty(),
       check("goalDate", "A valid goal date is required")
-        .not()
-        .isEmpty(),
+      .not()
+      .isEmpty(),
       check("bodyFatIndex", "Body fat index is required")
-        .not()
-        .isEmpty()
+      .not()
+      .isEmpty()
     ]
   ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({
+        errors: errors.array()
+      });
     }
 
     const {
@@ -270,7 +296,9 @@ router.put(
     if (goalDate) bodyMeasurementGoalFields.goalDate = goalDate;
 
     try {
-      const profile = await Profile.findOne({ user: req.user.id });
+      const profile = await Profile.findOne({
+        user: req.user.id
+      });
 
       profile.bodyMeasurementGoals.unshift(bodyMeasurementGoalFields);
 
@@ -292,12 +320,14 @@ router.delete(
   auth,
   async (req, res) => {
     try {
-      const profile = await Profile.findOne({ user: req.user.id });
+      const profile = await Profile.findOne({
+        user: req.user.id
+      });
       //get index of the one you want to remove
       const removeIndex = profile.bodyMeasurements
         .map(meas => meas.id)
         .indexOf(req.params.bodyMeasurement_id);
-        
+
       profile.bodyMeasurements.splice(removeIndex, 1);
       await profile.save();
       res.json(profile);
@@ -316,7 +346,9 @@ router.delete(
   auth,
   async (req, res) => {
     try {
-      const profile = await Profile.findOne({ user: req.user.id });
+      const profile = await Profile.findOne({
+        user: req.user.id
+      });
       //get index of the one you want to remove
       const removeIndex = profile.bodyMeasurementGoals
         .map(goal => goal.id)
@@ -339,9 +371,15 @@ router.delete("/", auth, async (req, res) => {
   try {
     // ----->    possibly remove workouts and diets????  <-------
     //remove profile with user id
-    await Profile.findOneAndRemove({ user: req.user.id });
-    await User.findOneAndRemove({ _id: req.user.id });
-    res.json({ msg: "User has been successfully deleted" });
+    await Profile.findOneAndRemove({
+      user: req.user.id
+    });
+    await User.findOneAndRemove({
+      _id: req.user.id
+    });
+    res.json({
+      msg: "User has been successfully deleted"
+    });
   } catch (error) {
     console.error(error.message);
     res.send(500).send("server error");
