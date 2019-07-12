@@ -32,10 +32,12 @@ const ProfileSchema = new mongoose.Schema({
   bodyMeasurements: [
     {
       height: {
-        type: String
+        type: String,
+        required: true
       },
       weight: {
-        type: String
+        type: String,
+        required: true
       },
       leftThigh: {
         type: String
@@ -68,7 +70,8 @@ const ProfileSchema = new mongoose.Schema({
         type: String
       },
       bodyFatIndex: {
-        type: String
+        type: String,
+        required: true
       },
       date: {
         type: Date,
@@ -76,51 +79,57 @@ const ProfileSchema = new mongoose.Schema({
       }
     }
   ],
-  bodyMeasurementGoal: {
-    weight: {
-      type: String
-    },
-    bodyFatIndex: {
-      type: String
-    },
-    leftThigh: {
-      type: String
-    },
-    rightThigh: {
-      type: String
-    },
-    leftCalf: {
-      type: String
-    },
-    rightCalf: {
-      type: String
-    },
-    chestBack: {
-      type: String
-    },
-    leftArm: {
-      type: String
-    },
-    rightArm: {
-      type: String
-    },
-    leftForearm: {
-      type: String
-    },
-    rightForearm: {
-      type: String
-    },
-    waist: {
-      type: String
-    },
-    goalDate: {
-      type: Date
-    },
-    date: {
-      type: Date,
-      default: Date.now
+
+  bodyMeasurementGoals: [
+    {
+      weight: {
+        type: String,
+        required: true
+      },
+      bodyFatIndex: {
+        type: String,
+        required: true
+      },
+      leftThigh: {
+        type: String
+      },
+      rightThigh: {
+        type: String
+      },
+      leftCalf: {
+        type: String
+      },
+      rightCalf: {
+        type: String
+      },
+      chestBack: {
+        type: String
+      },
+      leftArm: {
+        type: String
+      },
+      rightArm: {
+        type: String
+      },
+      leftForearm: {
+        type: String
+      },
+      rightForearm: {
+        type: String
+      },
+      waist: {
+        type: String
+      },
+      goalDate: {
+        type: Date,
+        required: true
+      },
+      date: {
+        type: Date,
+        default: Date.now
+      }
     }
-  },
+  ],
   certifications: [
     {
       certification: {
@@ -128,8 +137,8 @@ const ProfileSchema = new mongoose.Schema({
       }
     }
   ],
-  favoriteGym:{
-      type: String
+  favoriteGym: {
+    type: String
   },
   date: {
     type: Date,
