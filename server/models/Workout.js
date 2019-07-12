@@ -1,6 +1,7 @@
 const mongoose = require("mongoose")
+const Schema = mongoose.Schema
 
-const WorkoutSchema = new mongoose.Schema({
+const WorkoutSchema = new Schema({
     user: {
         type: Schema.Types.ObjectId,
         ref: "users"
