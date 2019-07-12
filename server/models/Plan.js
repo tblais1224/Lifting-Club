@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const DietSchema = new mongoose.Schema({
+const PlanSchema = new mongoose.Schema({
     user: {
         type: Schema.Types.ObjectId,
         ref: "users"
@@ -13,42 +13,17 @@ const DietSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    calorieGoal: {
-        type: String
-    },
-    carbohydrateGoal: {
-        type: String
-    },
-    proteinGoal: {
-        type: String
-    },
-    fatGoal: {
-        type: String
-    },
-    dailyMeals: [{
-        name: {
-            type: String
-        },
-        description: {
-            type: String
-        },
-        calories: {
-            type: String
-        },
-        carbohydrates: {
-            type: String
-        },
-        proteins: {
-            type: String
-        },
-        fats: {
-            type: String
-        },
-        foods: [{
-            name: {
-                type: String
+    weeks: [{
+        daysOfWeek: [{
+            diet: {
+                type: Schema.Types.ObjectId,
+                ref: "diets"
             },
-            quantity: {
+            workout: {
+                type: Schema.Types.ObjectId,
+                ref: "workouts"
+            },
+            description: {
                 type: String
             }
         }]
@@ -86,4 +61,4 @@ const DietSchema = new mongoose.Schema({
     }
 })
 
-module.exports = Diet = mongoose.model("diet", DietSchema)
+module.exports = Plan = mongoose.model("plan", PlanSchema)

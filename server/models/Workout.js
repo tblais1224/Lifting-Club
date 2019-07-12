@@ -5,6 +5,48 @@ const WorkoutSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: "users"
     },
+    title: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    muscleGroups: [{
+        group: {
+            type: String,
+            required: true
+        }
+    }],
+    exercises: [{
+        name: {
+            type: String,
+            required: true
+        },
+        description: {
+            type: String
+        },
+        sets: [{
+            reps: {
+                type: Number,
+                required: true
+            },
+            restTime: {
+                type: String
+            }
+        }]
+    }],
+    ratings: [{
+        user: {
+            type: Schema.Types.ObjectId,
+            ref: "users"
+        },
+        rating: {
+            type: Number,
+            required: true
+        }
+    }],
     comments: [{
         user: {
             type: Schema.Types.ObjectId,
@@ -21,7 +63,11 @@ const WorkoutSchema = new mongoose.Schema({
             type: Date,
             default: Date.now
         }
-    }]
+    }],
+    date: {
+        type: Date,
+        default: Date.now
+    }
 })
 
 module.exports = Workout = mongoose.model("workout", WorkoutSchema)
