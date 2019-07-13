@@ -44,7 +44,7 @@ router.get("/user/:user_id", async (req, res) => {
 
     if (!profile) {
       return res.status(400).json({
-        msg: "No profile found for this user"
+        msg: "No profile found with this id"
       });
     }
 
@@ -54,7 +54,7 @@ router.get("/user/:user_id", async (req, res) => {
     //if the type of error is object id error res.send the same error as above
     if (error.kind === "ObjectId") {
       return res.status(400).json({
-        msg: "No profile found for this user"
+        msg: "No profile found with this id"
       });
     }
     res.send(500).send("server error");

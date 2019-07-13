@@ -16,8 +16,8 @@ app.use(express.json({
 app.use("/api/auth", require("./routes/api/auth"))
 app.use("/api/users", require("./routes/api/users"))
 app.use("/api/profile", require("./routes/api/profile"))
-app.use("/api/liftingPost", require("./routes/api/liftingPost"))
-app.use("/api/dietPost", require("./routes/api/dietPost"))
+app.use("/api/lifting", require("./routes/api/lifting"))
+app.use("/api/diet", require("./routes/api/diet"))
 
 // app.use("/", (req, res) => res.send("haydens a bitch"))
 
