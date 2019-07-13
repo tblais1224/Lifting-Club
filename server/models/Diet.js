@@ -54,7 +54,7 @@ const DietSchema = new Schema({
             }
         }]
     }],
-    ratings: [{
+    reviews: [{
         user: {
             type: Schema.Types.ObjectId,
             ref: "users"
@@ -62,6 +62,13 @@ const DietSchema = new Schema({
         rating: {
             type: Number,
             required: true
+        },
+        text: {
+            type: String
+        },
+        date: {
+            type: Date,
+            default: Date.now
         }
     }],
     comments: [{

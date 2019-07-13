@@ -16,7 +16,7 @@ app.use(express.json({
 app.use("/api/auth", require("./routes/api/auth"))
 app.use("/api/users", require("./routes/api/users"))
 app.use("/api/profile", require("./routes/api/profile"))
-app.use("/api/lifting", require("./routes/api/lifting"))
+app.use("/api/workout", require("./routes/api/workout"))
 app.use("/api/diet", require("./routes/api/diet"))
 
 // app.use("/", (req, res) => res.send("haydens a bitch"))
