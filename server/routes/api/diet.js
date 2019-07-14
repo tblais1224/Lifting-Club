@@ -260,20 +260,37 @@ router.post(
       });
     }
     try {
-      const diet = await Diet.findById(req.params.diet_id);
+      let diet = await Diet.findById(req.params.diet_id);
       //check if user has an existing review
       const review = diet.reviews.filter(
         review => review.user.toString() === req.user.id
       );
-      
+
       const newReview = {
         rating: parseInt(req.body.rating),
         text: req.body.text,
         user: req.user.id
       };
 
+      //if review exists update with new content
       if (review.length > 0) {
-        
+        diet = await Diet.findOneAndUpdate(
+          {
+            _id: req.params.diet_id,
+            "reviews.user": req.user.id
+          },
+          {
+            $set: {
+              "reviews.$.rating": req.body.rating,
+              "reviews.$.text": req.body.text,
+              "reviews.$.date": Date.now()
+            }
+          },
+          {
+            new: true
+          }
+        );
+        return res.json(diet);
       }
 
       diet.reviews.unshift(newReview);
