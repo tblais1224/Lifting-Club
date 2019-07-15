@@ -88,23 +88,16 @@ router.post(
     const {
       title,
       description,
-      calorieGoal,
-      carbohydrateGoal,
-      proteinGoal,
-      fatGoal,
-      dailyMeals
+      muscleGroups,
+      exercises
     } = req.body;
 
     const workoutFields = {};
     workoutFields.user = req.user.id;
     if (title) workoutFields.title = title;
     if (description) workoutFields.description = description;
-    if (calorieGoal) workoutFields.calorieGoal = calorieGoal;
-    if (carbohydrateGoal) workoutFields.carbohydrateGoal = carbohydrateGoal;
-    if (proteinGoal) workoutFields.proteinGoal = proteinGoal;
-    if (fatGoal) workoutFields.fatGoal = fatGoal;
-    // possibly change how the daily meals are added
-    if (dailyMeals) workoutFields.dailyMeals = dailyMeals;
+    if (muscleGroups) workoutFields.muscleGroups = muscleGroups;
+    if (exercises) workoutFields.exercises = exercises;
 
     try {
       workout = new workout(workoutFields);
@@ -205,6 +198,12 @@ router.post(
       res.status(500).send("Server Error");
     }
   }
+
+
+
+
+
+  <div class="_3m31" style="height: 100%; background-image: url(&quot;https://scontent.fbos1-1.fna.fbcdn.net/v/t1.15752-0/s261x260/65033675_365995824058185_8379537054840651776_n.jpg?_nc_cat=107&amp;_nc_oc=AQlvJrmxMbfXeNzmZBKyLduoq6B1TAUfEYOk3XesbZIidAQdw0mVxoElaF1vjjeIF3k&amp;_nc_ht=scontent.fbos1-1.fna&amp;oh=d0b13b57efee72ec843431fa9a09ecef&amp;oe=5DA14172&quot;); background-position: center center;"></div>
 );
 
 //@route DELETE api/workout/:workout_id/comment/:comment_id
