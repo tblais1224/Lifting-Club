@@ -107,7 +107,7 @@ router.post(
     if (dailyMeals) dietFields.dailyMeals = dailyMeals;
 
     try {
-      diet = new Diet(dietFields);
+      let diet = new Diet(dietFields);
       await diet.save();
       res.json(diet);
     } catch (error) {
