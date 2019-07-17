@@ -1,8 +1,12 @@
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { connect } from "react-redux";
+import { setAlert } from "../../actions/alert";
+import PropTypes from 'prop-types'
 
-const Register = () => {
+
+//insteade of passing props in, destructure the props to get only setAlert
+const Register = ({ setAlert }) => {
   //react hook
   //formData will be the same as state = { formData: "" }
   //setformdata will be the this.setState({formData: values})
@@ -22,7 +26,8 @@ const Register = () => {
   const onSubmit = async e => {
     e.preventDefault();
     if (password !== password2) {
-      console.log("Passwords do not match");
+      //pass message and alertType
+      setAlert("Passwords do not match", "danger");
     } else {
       const newUser = {
         name,
@@ -31,15 +36,7 @@ const Register = () => {
         password2
       };
       try {
-        const config = {
-          headers: {
-            "Content-Type": "application/json"
-          }
-        };
-        //converts to js object to json string
-        const body = JSON.stringify(newUser);
-        const res = await axios.post("/api/users", body, config);
-        console.log(res.data);
+        console.log(newUser);
       } catch (error) {
         console.log(error.response.data);
       }
@@ -108,4 +105,12 @@ const Register = () => {
   );
 };
 
-export default Register;
+Register.propTypes = {
+  setAlert: PropTypes.func.isRequired
+}
+
+//first param in connect is any state you want to pass, then it takes in any actions
+export default connect(
+  null,
+  { setAlert }
+)(Register);
