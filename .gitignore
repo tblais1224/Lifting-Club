@@ -3,3 +3,4 @@ package-lock.json
 .vscode
 config/production.json
 config/default.json
+devconnector_html_theme
