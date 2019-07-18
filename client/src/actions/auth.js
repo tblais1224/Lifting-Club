@@ -61,6 +61,8 @@ export const register = ({
             type: REGISTER_SUCCESS,
             payload: res.data
         })
+        dispatch(loadUser())
+
     } catch (error) {
         //array of errors from front end
         const errors = error.response.data.errors
@@ -98,6 +100,7 @@ export const login = (email, password) => async dispatch => {
             type: LOGIN_SUCCESS,
             payload: res.data
         })
+        dispatch(loadUser())
     } catch (error) {
         //array of errors from front end
         const errors = error.response.data.errors

@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { setAlert } from "../../actions/alert";
 import { register } from "../../actions/auth";
@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 
 
 //instead of passing props in, destructure the props to get only setAlert
-const Register = ({ setAlert, register }) => {
+const Register = ({ setAlert, register, isAuthenticated }) => {
   //react hook
   //formData will be the same as state = { formData: "" }
   //setformdata will be the this.setState({formData: values})
@@ -39,6 +39,12 @@ const Register = ({ setAlert, register }) => {
       register(newUser)
     }
   };
+
+
+  //redirect if logged in
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />
+  }
 
   return (
     <Fragment>
@@ -105,10 +111,14 @@ const Register = ({ setAlert, register }) => {
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
 }
 
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+})
 //first param in connect is any state you want to pass, then it takes in any actions
 export default connect(
-  null,
+  mapStateToProps,
   { setAlert, register }
 )(Register);
