@@ -1,7 +1,11 @@
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux"
+import PropTypes from 'prop-types'
+import { login } from "../../actions/auth"
 
-const Login = () => {
+
+const Login = ({login}) => {
   const [formData, setFormData] = useState({
     email: "",
     password: ""
@@ -15,12 +19,8 @@ const Login = () => {
 
   const onSubmit = async e => {
     e.preventDefault();
-    const loginUser = {
-      email,
-      password
-    };
     try {
-      console.log(loginUser);
+      login(email, password)
     } catch (error) {
       console.log(error.response.data);
     }
@@ -64,4 +64,8 @@ const Login = () => {
   );
 };
 
-export default Login;
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+}
+
+export default connect(null, { login })(Login);
