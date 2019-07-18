@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const { check, validationResult } = require("express-validator");
+const {
+  check,
+  validationResult
+} = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const config = require("config");
@@ -17,8 +20,8 @@ router.post(
   "/",
   [
     check("name", "Name is required")
-      .not()
-      .isEmpty(),
+    .not()
+    .isEmpty(),
     check("email", "Please use a valid email").isEmail(),
     check(
       "password",
@@ -26,7 +29,9 @@ router.post(
     ).isLength({
       min: 6
     }),
-    check("password2").custom((value, { req }) => {
+    check("password2").custom((value, {
+      req
+    }) => {
       if (value !== req.body.password) {
         throw new Error("Confirmation field must match the password field");
       } else {
@@ -43,7 +48,11 @@ router.post(
       });
     }
 
-    const { name, email, password } = req.body;
+    const {
+      name,
+      email,
+      password
+    } = req.body;
 
     try {
       let user = await User.findOne({
@@ -52,47 +61,46 @@ router.post(
 
       if (user) {
         res.status(400).json({
-          errors: [
-            {
-              msg: "User already exists"
-            }
-          ]
+          errors: [{
+            msg: "User already exists"
+          }]
         });
+      } else {
+        //set req.body to new user model
+        user = new User({
+          name,
+          email,
+          password
+        });
+        //create a salt
+        const salt = await bcrypt.genSalt(10);
+        //create hashed salt and store it in model password key
+        user.password = await bcrypt.hash(password, salt);
+        //save to db
+        await user.save();
+
+        //payload for jwt token
+        const payload = {
+          user: {
+            //mongoose knows to use _id
+            id: user.id
+          }
+        };
+
+        jwt.sign(
+          payload,
+          config.get("jwtSecret"), {
+            expiresIn: 5000
+          },
+          (err, token) => {
+            if (err) throw err;
+            res.json({
+              token
+            });
+          }
+        );
       }
-      //set req.body to new user model
-      user = new User({
-        name,
-        email,
-        password
-      });
-      //create a salt
-      const salt = await bcrypt.genSalt(10);
-      //create hashed salt and store it in model password key
-      user.password = await bcrypt.hash(password, salt);
-      //save to db
-      await user.save();
 
-      //payload for jwt token
-      const payload = {
-        user: {
-          //mongoose knows to use _id
-          id: user.id
-        }
-      };
-
-      jwt.sign(
-        payload,
-        config.get("jwtSecret"),
-        {
-          expiresIn: 5000
-        },
-        (err, token) => {
-          if (err) throw err;
-          res.json({
-            token
-          });
-        }
-      );
     } catch (error) {
       console.error(error.message);
       res.status(500).send("server error");

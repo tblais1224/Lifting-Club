@@ -11,7 +11,7 @@ const config = require("config")
 const bcrypt = require("bcryptjs")
 
 //@route GET api/auth
-//@desc  get user route
+//@desc  get user data excluding password
 //@access  private
 //using auth in params will make route password protected
 router.get("/", auth, async (req, res) => {

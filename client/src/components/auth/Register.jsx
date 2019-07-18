@@ -2,11 +2,12 @@ import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { setAlert } from "../../actions/alert";
+import { register } from "../../actions/auth";
 import PropTypes from 'prop-types'
 
 
-//insteade of passing props in, destructure the props to get only setAlert
-const Register = ({ setAlert }) => {
+//instead of passing props in, destructure the props to get only setAlert
+const Register = ({ setAlert, register }) => {
   //react hook
   //formData will be the same as state = { formData: "" }
   //setformdata will be the this.setState({formData: values})
@@ -35,11 +36,7 @@ const Register = ({ setAlert }) => {
         password,
         password2
       };
-      try {
-        console.log(newUser);
-      } catch (error) {
-        console.log(error.response.data);
-      }
+      register(newUser)
     }
   };
 
@@ -106,11 +103,12 @@ const Register = ({ setAlert }) => {
 };
 
 Register.propTypes = {
-  setAlert: PropTypes.func.isRequired
+  setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
 }
 
 //first param in connect is any state you want to pass, then it takes in any actions
 export default connect(
   null,
-  { setAlert }
+  { setAlert, register }
 )(Register);
