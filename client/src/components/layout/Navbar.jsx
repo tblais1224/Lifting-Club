@@ -1,12 +1,11 @@
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom"
-import { connect } from "react-redux"
-import PropTypes from 'prop-types'
-import { logout } from "../../actions/auth"
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { logout } from "../../actions/auth";
 
 //pulls out isAuth and loading from auth prop
 const Navbar = ({ logout, auth: { isAuthenticated, loading } }) => {
-
   const authLinks = (
     <ul>
       <li>
@@ -22,10 +21,13 @@ const Navbar = ({ logout, auth: { isAuthenticated, loading } }) => {
         <Link to="/members">Members</Link>
       </li>
       <li>
-        <a href="#!" onClick={logout}><i className="fas fa-sign-out-alt"></i>{" "}<span className="hide-sm">Logout</span></a>
+        <a href="#!" onClick={logout}>
+          <i className="fas fa-sign-out-alt" />{" "}
+          <span className="hide-sm">Logout</span>
+        </a>
       </li>
     </ul>
-  )
+  );
 
   const guestLinks = (
     <ul>
@@ -48,8 +50,7 @@ const Navbar = ({ logout, auth: { isAuthenticated, loading } }) => {
         <Link to="/login">Login</Link>
       </li>
     </ul>
-
-  )
+  );
 
   return (
     <nav className="navbar bg-dark">
@@ -64,18 +65,23 @@ const Navbar = ({ logout, auth: { isAuthenticated, loading } }) => {
         </Link>
       </h1>
       {/* if loading is false, perform the action. (similar ternary) */}
-      {!loading && (<Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>)}
+      {!loading && (
+        <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
+      )}
     </nav>
   );
 };
 
 Navbar.propTypes = {
   logout: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-}
+  auth: PropTypes.object.isRequired
+};
 
 const mapStateToProps = state => ({
   auth: state.auth
-})
+});
 
-export default connect(mapStateToProps, { logout })(Navbar);
+export default connect(
+  mapStateToProps,
+  { logout }
+)(Navbar);
