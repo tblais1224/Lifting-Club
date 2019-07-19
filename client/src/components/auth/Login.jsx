@@ -1,9 +1,8 @@
 import React, { Fragment, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
-import { connect } from "react-redux"
-import PropTypes from 'prop-types'
-import { login } from "../../actions/auth"
-
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { login } from "../../actions/auth";
 
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
@@ -13,22 +12,22 @@ const Login = ({ login, isAuthenticated }) => {
 
   const { email, password } = formData;
 
+  //same as set state, create new copy of formData and update name field with corrosponding value
   const onChange = e =>
-    //same as set state, create new copy of formData and update name field with corrosponding value
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = e => {
     e.preventDefault();
     try {
-      login(email, password)
+      login(email, password);
     } catch (error) {
       console.log(error.response.data);
     }
   };
 
   //redirect if logged in
-  if(isAuthenticated){
-    return <Redirect to="/dashboard"/>
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
   }
 
   return (
@@ -71,11 +70,14 @@ const Login = ({ login, isAuthenticated }) => {
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool,
-}
+  isAuthenticated: PropTypes.bool
+};
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated
-})
+});
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(
+  mapStateToProps,
+  { login }
+)(Login);

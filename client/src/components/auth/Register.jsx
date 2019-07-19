@@ -24,7 +24,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     //same as set state, create new copy of formData and update name field with corrosponding value
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = async e => {
+  const onSubmit = e => {
     e.preventDefault();
     if (password !== password2) {
       //pass message and alertType
