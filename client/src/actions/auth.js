@@ -110,11 +110,8 @@ export const login = (email, password) => async dispatch => {
     });
   }
 };
-<<<<<<< HEAD
-=======
 
 //logout / clear profile
 export const logout = () => dispatch => {
   dispatch({ type: LOGOUT });
 };
->>>>>>> master
